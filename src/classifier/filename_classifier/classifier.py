@@ -1,12 +1,15 @@
 from .rule_matchers import regex_match_filename, get_fuzzy_score
 
 
-# Tries exact pattern matching against the filename, before falling back on fuzzy keyword scoring if no exact match is found.
+# Attempt to classify the file based on its filename.
 def classify_using_filename(filename, RULES):
     filename = filename.lower()
 
+    # Search for regex pattern match in filename.
     for rule in RULES:
-        matched, matching_text = regex_match_filename(rule["filename_regex"], filename)
+        matched, matching_text = regex_match_filename(
+            rule.get("filename_regex", []), filename
+        )
         if matched:
             return {
                 "label": rule["label"],
@@ -17,8 +20,11 @@ def classify_using_filename(filename, RULES):
                 "confidence": 1.0,
             }
 
+    # If no exact match is found, fall back on fuzzy matching.
     for rule in RULES:
-        score, best_matching_text = get_fuzzy_score(rule["fuzzy_keywords"], filename)
+        score, best_matching_text = get_fuzzy_score(
+            rule.get("fuzzy_keywords", []), filename
+        )
         return {
             "label": rule["label"],
             "step": 2,
