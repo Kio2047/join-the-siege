@@ -1,6 +1,10 @@
 from rapidfuzz import fuzz, process
 
 
+# In production, the threshold for fuzzy search should tuned by assessing balance between false positives vs. missed matches. For simplicity, in this task I've set it as equal to the MIN_CONFIDENCE rating used throughout the pipeline
+_FUZZY_THRESHOLD = 80
+
+
 # Search for the first regex pattern with a filename match.
 def regex_match_filename(filename_patterns, filename):
     for pattern in filename_patterns:
@@ -18,7 +22,12 @@ def regex_match_filename(filename_patterns, filename):
 def get_fuzzy_score(fuzzy_keywords, filename):
     if not fuzzy_keywords:
         return 0, None
+
     best_match, score, _ = process.extractOne(
-        filename, fuzzy_keywords, fuzz.partial_ratio
+        filename, fuzzy_keywords, scorer=fuzz.partial_ratio
     )
-    return score, best_match
+
+    if score >= _FUZZY_THRESHOLD:
+        return score, best_match
+    else:
+        return score, None
