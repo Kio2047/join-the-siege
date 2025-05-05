@@ -16,6 +16,8 @@
   fuzzy_keywords:
     - "driver license"
     - "driving licence"
+    - "driver licence"
+    - "driving licence"
   content_regex:
     required:
       - "driver'?s? licen[cs]e"

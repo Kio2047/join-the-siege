@@ -126,7 +126,7 @@ def _compile_rules(raw_rules):
 
 def _validate_filetypes(mapping):
     for extension, mimes in mapping.items():
-        if not isinstance(extension, str) or not extension.startswith("."):
+        if not isinstance(extension, str) or "." in extension:
             raise ValueError(f"Invalid extension key: {extension}")
         if not isinstance(mimes, list) or not all(
             isinstance(mime, str) for mime in mimes

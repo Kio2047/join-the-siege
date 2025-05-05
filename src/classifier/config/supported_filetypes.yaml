@@ -1,23 +1,23 @@
-.pdf:
+pdf:
   - application/pdf
 
-.docx:
+docx:
   - application/vnd.openxmlformats-officedocument.wordprocessingml.document
 
-.xlsx:
+xlsx:
   - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 
-.png:
+png:
   - image/png
 
-.jpg:
+jpg:
   - image/jpeg
 
-.jpeg:
+jpeg:
   - image/jpeg
 
-.tiff:
+tiff:
   - image/tiff
 
-.bmp:
+bmp:
   - image/bmp
