@@ -1,0 +1,65 @@
+# Each list item represents one document class
+# - label: Identifies the document class
+# - filename_regex: List of regexes to look for in the filename
+# - fuzzy_keywords: Keywords for filename fuzzy matching
+# - content_regex:
+#     - required: Must be present in the document's extracted text
+#     - supporting: Boosts confidence when present, but ultimately more generic
+#     - negative: Must not be present
+
+# label is the only required field — other fields can be omitted to skip certain parts of the classification pipeline for a given class (e.g., some classes might only use content matching without filename examination)
+
+- label: driving_license
+  filename_regex:
+    - "(driver|driving)[-_]?licen[cs]e"    # e.g., drivinglicense
+    - "\\bdl[_-]?\\d{5,}"                  # e.g., dl_12345
+  fuzzy_keywords:
+    - "driver license"
+    - "driving licence"
+  content_regex:
+    required:
+      - "driver'?s? licen[cs]e"
+    supporting:
+      - "date of birth"
+      - "DOB"
+      - "expiry date"
+      - "issuing (authority|office)"
+    negative:
+      - "vehicle registration"
+      - "certificate of insurance"
+
+- label: bank_statement
+  filename_regex:
+    - "(bank|acct|account).*statement"     # e.g., bank_statement_Q1.pdf
+    - "stmt[_-]?\\d{4}"                    # e.g., stmt_2023.pdf
+  fuzzy_keywords:
+    - "bank statement"
+    - "statement of account"
+  content_regex:
+    required:
+      - "account number"
+      - "statement period"
+    supporting:
+      - "available balance"
+      - "closing balance"
+    negative:
+      - "invoice number"
+      - "payment due"
+
+- label: invoice
+  filename_regex:
+    - "invoice[_-]?\\d{3,}"                # e.g., invoice-00123.pdf
+    - "\\binv\\d{4,}"                      # e.g., inv20240017.png
+  fuzzy_keywords:
+    - "invoice"
+    - "amount due"
+  content_regex:
+    required:
+      - "invoice number"
+      - "bill to"
+    supporting:
+      - "payment due"
+      - "total amount"
+    negative:
+      - "bank statement"
+      - "account number"
