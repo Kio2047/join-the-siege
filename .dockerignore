@@ -1,0 +1,48 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# Jupyter and Python tooling
+.ipynb_checkpoints/
+*.ipynb
+.python-version
+
+# Docker-related files
+Dockerfile
+.dockerignore
+
+# Environment and config files
+.env
+*.env
+
+# Logs and dumps
+*.log
+*.out
+*.pid
+*.gz
+*.zip
+*.tar
+
+# OS or editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Exclude top-level data folders only
+data/
+files/
+manual_review/
+scripts/
+
+# Optional: exclude .github (not needed in image runtime)
+.github/
