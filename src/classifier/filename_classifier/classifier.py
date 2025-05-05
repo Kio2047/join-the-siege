@@ -10,14 +10,18 @@ def classify_using_filename(filename, RULES):
         matched, matching_text = regex_match_filename(
             rule.get("filename_regex", []), filename
         )
+
         if matched:
             return {
-                "label": rule["label"],
-                "step": 1,
-                "based_on": "filename",
-                "match_type": "regex",
-                "additional_info": {"matching_text": matching_text},
-                "confidence": 1.0,
+                "success": True,
+                "data": {
+                    "label": rule["label"],
+                    "step": 1,
+                    "based_on": "filename",
+                    "match_type": "regex",
+                    "additional_info": {"matching_text": matching_text},
+                    "confidence": 1.0,
+                },
             }
 
     # If no exact match is found, fall back on fuzzy matching.
@@ -25,11 +29,16 @@ def classify_using_filename(filename, RULES):
         score, best_matching_text = get_fuzzy_score(
             rule.get("fuzzy_keywords", []), filename
         )
-        return {
-            "label": rule["label"],
-            "step": 2,
-            "based_on": "filename",
-            "match_type": "fuzzy",
-            "additional_info": {"best_matching_text": best_matching_text},
-            "confidence": round(score / 100, 2),
-        }
+
+        if best_matching_text is not None:
+            return {
+                "success": True,
+                "data": {
+                    "label": rule["label"],
+                    "step": 2,
+                    "based_on": "filename",
+                    "match_type": "fuzzy",
+                    "additional_info": {"best_matching_text": best_matching_text},
+                    "confidence": round(score / 100, 2),
+                },
+            }
