@@ -1,6 +1,5 @@
 from pathlib import Path
 import filetype
-from werkzeug.datastructures import FileStorage
 
 from .config_loader import DOCUMENT_RULES, SUPPORTED_FILETYPES
 from .filename_classifier.classifier import classify_using_filename
@@ -50,11 +49,10 @@ def classify_file(file):
         )
 
     # Attempt filename-based classification.
-
     filename_classification_result = classify_using_filename(filename, DOCUMENT_RULES)
     if (
         filename_classification_result is not None
-        and filename_classification_result["data"]["confidence"] >= MIN_CONFIDENCE
+        and filename_classification_result["success"]
     ):
         return filename_classification_result, 200
 

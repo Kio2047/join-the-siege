@@ -95,21 +95,24 @@ def _extract_xlsx(path):
 def extract_file_text(file, ext):
     ext = ext.lower()
 
-    # Temporarily write file to disk, ensuring all file data is written before performing reads.
-    with tempfile.NamedTemporaryFile(suffix=f".{ext}", delete=True) as temp_file:
+    # Temporarily write file to disk
+    with tempfile.NamedTemporaryFile(suffix=f".{ext}", delete=False) as temp_file:
         file.save(temp_file)
-        temp_file.flush()
+        temp_path = Path(temp_file.name)
 
-        path = Path(temp_file.name)
-
+    try:
         match ext:
             case "pdf":
-                return _extract_pdf(path)
+                return _extract_pdf(temp_path)
             case "docx":
-                return _extract_docx(path)
+                return _extract_docx(temp_path)
             case "xlsx":
-                return _extract_xlsx(path)
+                return _extract_xlsx(temp_path)
             case "png" | "jpg" | "jpeg" | "tiff" | "bmp":
-                return _ocr_image(Image.open(path))
+                return _ocr_image(Image.open(temp_path))
             case _:
                 return None
+    finally:
+        # Clean up the temporary file.
+        if temp_path.exists():
+            temp_path.unlink()
