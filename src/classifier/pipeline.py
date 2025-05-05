@@ -8,7 +8,7 @@ from .extract import extract_file_text
 from .save_unclassifiable import save_unclassifiable_file
 
 
-MIN_CONFIDENCE = 80
+MIN_CONFIDENCE = 0.8
 
 
 # Check whether file extension is an existing key in SUPPORTED_FILETYPES.yaml config file.

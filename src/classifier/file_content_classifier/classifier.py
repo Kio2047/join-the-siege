@@ -46,19 +46,17 @@ def classify_using_file_content(file_text, RULES, MIN_CONFIDENCE):
     confidence = max(_classifier.predict_proba([embedding])[0])
 
     if confidence >= MIN_CONFIDENCE:
-        return (
-            {
-                "success": True,
-                "data": {
-                    "label": label,
-                    "step": 4,
-                    "based_on": "file content",
-                    "match_type": "embedding + classifier",
-                    "additional_info": {},
-                    "confidence": confidence,
-                },
+        return {
+            "success": True,
+            "data": {
+                "label": label,
+                "step": 4,
+                "based_on": "file content",
+                "match_type": "embedding + classifier",
+                "additional_info": {},
+                "confidence": confidence,
             },
-        )
+        }
 
     else:
         return {

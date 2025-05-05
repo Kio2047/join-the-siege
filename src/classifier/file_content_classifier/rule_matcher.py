@@ -47,6 +47,7 @@ def regex_match_file_content(file_content_patterns, file_text):
         frac = supporting_match_count / len(supporting_patterns)
     else:
         frac = 1
+
     confidence = _BASE_SCORE + (frac * _ADDITIONAL_RANGE)
 
     return confidence, text_matches
