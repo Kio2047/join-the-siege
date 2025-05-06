@@ -29,6 +29,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy application code
 COPY src/ ./src/
+COPY tests/ ./tests/
+COPY data/validation/ ./data/validation/
 
 # Expose the default Flask port
 EXPOSE 5000

@@ -1,3 +1,4 @@
+from pathlib import Path
 import pytest
 from werkzeug.datastructures import FileStorage
 import os
@@ -16,26 +17,28 @@ from src.classifier.file_content_classifier.rule_matcher import regex_match_file
     "filename, ext, expected_substrings",
     [
         (
-            "files/bank_statement_1.pdf",
+            "bank_statement_1.pdf",
             "pdf",
             ["Debit Card Purchase", "Account Number"],
         ),
         (
-            "files/drivers_license_1.jpg",
-            "jpg",
-            ["DRIVER LICENSE", "Eyes", "License No."],
+            "invoice_1.pdf",
+            "pdf",
+            ["INVOICE", "Unit Price", "Item #"],
         ),
         (
-            "files/invoice_2.pdf",
-            "pdf",
-            ["INVOICE", "SEND PAYMENT TO"],
+            "poorly_named.jpg",
+            "jpg",
+            ["DRIVER LICENSE", "Eyes", "License No."],
         ),
     ],
 )
 def test_extract_file_text(filename, ext, expected_substrings):
-    with open(filename, "rb") as f:
-        file = FileStorage(stream=f, filename=filename)
+    file_path = Path(__file__).parent / "files" / filename
+    assert file_path.exists(), f"Test file not found: {file_path}"
 
+    with file_path.open("rb") as f:
+        file = FileStorage(stream=f, filename=filename)
         text = extract_file_text(file, ext)
 
         assert isinstance(text, str)

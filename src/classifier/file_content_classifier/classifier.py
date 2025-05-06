@@ -20,7 +20,7 @@ def classify_using_file_content(file_text, RULES, MIN_CONFIDENCE):
     # Try rule-based matching.
     for rule in RULES:
         confidence, text_matches = regex_match_file_content(
-            rule["content_regex"], file_text
+            rule.get("content_regex", []), file_text
         )
 
         if confidence >= MIN_CONFIDENCE:

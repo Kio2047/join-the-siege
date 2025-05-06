@@ -11,7 +11,7 @@
 
 - label: driving_license
   filename_regex:
-    - "(driver|driving)[-_]?licen[cs]e"    # e.g., drivinglicense
+    - "(driver[s]?|driving)[-_]?licen[cs]e"    # e.g., drivinglicense
     - "\\bdl[_-]?\\d{5,}"                  # e.g., dl_12345
   fuzzy_keywords:
     - "driver license"

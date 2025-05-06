@@ -39,10 +39,14 @@ Dockerfile
 .idea/
 
 # Exclude top-level data folders only
-data/
+data/*
 files/
 manual_review/
 scripts/
 
 # Optional: exclude .github (not needed in image runtime)
 .github/
+
+# Include validation subfolder in data for testing
+!data/validation/
+!data/validation/**

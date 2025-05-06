@@ -1,7 +1,7 @@
 from io import BytesIO
 from pathlib import Path
-
 import pytest
+
 from src.app import app
 from src.classifier.pipeline import _allowed_file
 
