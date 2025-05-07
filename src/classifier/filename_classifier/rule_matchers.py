@@ -1,7 +1,7 @@
 from rapidfuzz import fuzz, process
 
 
-# In production, the threshold for fuzzy search should tuned by assessing balance between false positives vs. missed matches. For simplicity, in this task I've set it as equal to the MIN_CONFIDENCE rating used throughout the pipeline
+# In production, the threshold for fuzzy search should tuned by assessing balance between false positives vs. missed matches. For simplicity, in this task I've set it as equal to the MIN_CONFIDENCE rating used throughout the pipeline.
 _FUZZY_THRESHOLD = 80
 
 
