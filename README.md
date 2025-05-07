@@ -44,7 +44,7 @@ Interesting challenge! Learnt a lot. Very open-ended and quite tough to define a
 ### Pipeline description:
 To efficiently handle high volumes of files and increase throughput, the classifier uses a pipeline that applies increasingly expensive methods in stages. At each stage, it attempts to classify the file; if successful, the process short-circuits and a response is returned to the client. If the attempt fails, the file proceeds to the next stage in the pipeline, where a more resource-intensive classification method is applied. Rather than throwing the kitchen sink at the problem upfront, this approach tries to extract as much value as possible from cheap heuristics before escalating to more sophisticated, compute-intensive methods — ultimately minimising effort required for classification.
 
- [Here's a diagram of the pipeline](https://excalidraw.com/#json=dsk69YJa9oeVRHf9NQhuV,ueME993p2WpxUUZ09DBNnA).
+ [Here's a diagram of the pipeline](https://excalidraw.com/#json=PC2ZZPaA6VSeVzf08NyeM,1S-stXvA-FOkZD30vcMZqQ).
 
 
 The steps in the pipeline are as follows:
